@@ -1,0 +1,5 @@
+The .zip file will expand to show you either
+
+an .obj file (which is based on vextex colour information not textures) and a .jpg showing what the model looks like 
+
+for a .obj and .mtl (material file) and a .jpg texture

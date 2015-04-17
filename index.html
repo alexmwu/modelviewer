@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script id="color-vShader" type="x-shader/x-vertex">
+	attribute vec3 vPosition;
+	attribute vec3 vColor;
+   	varying vec4 varyColor;
+    uniform mat4 mvMatrix;
+    uniform mat4 pMatrix;
+
+	void main(){
+        gl_Position=pMatrix*mvMatrix*vec4(vPosition,1.0);
+        varyColor=vec4(vColor,1.0);
+	}
+</script>
+<script id="color-fShader" type="x-shader/x-fragment">
+	precision mediump float;
+	varying vec4 varyColor;
+    void main(){
+		gl_FragColor=varyColor;
+	}
+</script>
+
+<script id="flat-vShader" type="x-shader/x-vertex">
+    attribute vec3 vPosition;
+    uniform mat4 mvMatrix;
+    uniform mat4 pMatrix;
+
+    void main(){
+        gl_Position=pMatrix*mvMatrix*vec4(vPosition,1.0);
+    }
+</script>
+<script id="flat-fShader" type="x-shader/x-fragment">
+    precision mediump float;
+    void main(){
+        gl_FragColor=vec4(0.5,0.5,0.5,1.0);
+</script>
+
+<script type="text/javascript" src="common/webgl-utils.js"></script>
+<script type="text/javascript" src="common/initShaders.js"></script>
+<script type="text/javascript" src="common/MV.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/objreader.js"></script>
+<script type="text/javascript" src="js/localfile.js"></script>
+<script type="text/javascript" src="js/model.js"></script>
+<script type="text/javascript" src="js/viewer.js"></script>
+<script type="text/javascript" src="js/driver.js"></script>
+</head>
+
+<body>
+<canvas id="gl-canvas" width="512" height="512" style="border:1px solid black">
+Oops...your browser doesn't support the HTML5 canvas element
+</canvas>
+<br>
+<div id="info">
+    To rotate the camera, use the arrow keys.<br>
+    To zoom in/out, use the scroll wheel.<br>
+    To pan along the x axis, use "a" and "d."<br>
+    To pan along the y axis, use "w" and "s."<br>
+    To pan along the z axis, use "r" and "f."<br>
+</div>
+<br>
+<div id="file-info"></div>
+<br>
+<div id="file-buttons">Open a .obj: <input id="obj-file" type="file" class="file-picker"></div>
+
+<!--.mtl: <input id="mtl-file" type="file" class="file-picker">
+Image files for textures: <input id="image-file" type="file" class="file-picker">
+-->
+
+<div>
+    <input id="wireframe" type="checkbox" onclick="switchWireframe()"><label for="wireframe">Show Wireframe</label>
+    <input id="colored" type="checkbox" onclick=""><label for="colored">Color (if available)</label>
+<!--	<input id="filled" type="radio" name="viewMode" checked="true" value = "normal" onchange="setView(this.value)" oninput="setView(this.value)"/>
+    <label for="filled">Filled In</label>
+    <input id="wireframe" type="radio" name="viewMode" value="framed" onchange="setView(this.value)" oninput="setTwist(this.value)"/>
+    <label for="wireframe">Wireframe</label>
+    <br />
+
+    <label for="theta">Theta (degrees):</label>
+    <input id="setTheta" type="range" step="5" min = "-360" max = "360" value="0" onchange="setTheta(this.value)" oninput="setTheta(this.value)"/>
+	<span id="range">0</span> <br />
+
+    <label for="granularity">Granularity:</label>
+    <input id="granularity" type="range" min="1" max="20" value="1" step="1" onchange="setGranularity(this.value)" oninput="setGranularity(this.value)"/>
+    <span id='gran'>1</span>-->
+</div>
+
+</body>
+</html>
+
