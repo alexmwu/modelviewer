@@ -50,7 +50,7 @@
 
 <body>
 <canvas id="gl-canvas" width="512" height="512" style="border:1px solid black">
-Oops...your browser doesn't support the HTML5 canvas element
+Oops...your browser doesn't support the HTML5 canvas element. Please <a href="http://caniuse.com/#feat=canvas">upgrade</a>.
 </canvas>
 <br>
 <div id="info">
@@ -60,11 +60,15 @@ Oops...your browser doesn't support the HTML5 canvas element
     To pan along the y axis, use "w" and "s."<br>
     To pan along the z axis, use "r" and "f."<br>
 </div>
-<br>
-<div id="file-info"></div>
-<br>
-<div id="file-buttons">Open a .obj: <input id="obj-file" type="file" class="file-picker"></div>
-
+<!--add object div for each opened .obj file-->
+<div id="all-objs">
+    <div class="obj">
+        <br>
+        <div class="file-info"></div>
+        <br>
+        <div class="file-buttons">Open a .obj: <input class="obj-file file-picker" type="file"></div>
+    </div>
+</div>
 <!--.mtl: <input id="mtl-file" type="file" class="file-picker">
 Image files for textures: <input id="image-file" type="file" class="file-picker">
 -->
