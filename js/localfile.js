@@ -1,13 +1,13 @@
 var file;	//obj file
 
-function fileInfo(file){
+function fileInfo(file,elem){
 	var output=[];
 	output.push('<strong>'+escape(file.name),'</strong> (',file.type||'n/a',') - ',file.size,' bytes, last modified: ',
           file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() : 'n/a','<br>');
-	document.getElementById("file-info").innerHTML+=output.join('');
+	elem.innerHTML+=output.join('');
 }
 
-  function handleFileSelect(evt) {
+/*  function handleFileSelect(evt) {
     var files = evt.target.files; // FileList object
 
     // Loop through the FileList and render image files as thumbnails.
@@ -34,48 +34,48 @@ function fileInfo(file){
       // Read in the image file as a data URL.
       reader.readAsDataURL(f);
     }
-  }
+  }*/
 
 function readSingleFile(e) {
   var file = e.target.files[0];
   if (!file) {
     return;
   }
-  fileInfo(file);
+  fileInfo(file,e.srcElement);
   var reader = new FileReader();
   //when reader has loaded
   reader.onload = function(e) {
     var contents = e.target.result;
-        vertices=[];
-		    objCenter=parseOBJ(contents);
-        if(vertices.length==0){
-          alert("The file wasn't loaded as it was incorrectly formatted");
-        }
-        else{
-          if(!listening)
-            initializeListeners(10);
+    vertices=[];
+    objCenter=parseOBJ(contents);
+    if(vertices.length==0){
+      alert("The file wasn't loaded as it was incorrectly formatted");
+    }
+    else{
+      if(!listening)
+        initializeListeners(10);
 
-          currentModel=new Model(indices,wireframeIndices,vertices,vertColors,vertTextures,vertNormals,objCenter);
-          currentModel.init();
-          models.push(currentModel);
-          addButton();
-        }
+      currentModel=new Model(indices,wireframeIndices,vertices,vertColors,vertTextures,vertNormals,objCenter);
+      currentModel.init();
+      models.push(currentModel);
+      //addButton(e.srcElement);
+    }
   };
   reader.readAsText(file);
 }
 
-function addButton(){
-  var buttonDiv=document.getElementById("file-buttons");
+//add a new button after original; not currently in use above: better practice to 
+function addButton(elem){
   var buttonPicker=document.createElement("input");
   buttonPicker.type="file";
   buttonPicker.class="file-picker";
   buttonPicker.addEventListener('change',readSingleFile,false);
-  buttonDiv.appendChild(buttonPicker);
+  elem.appendChild(buttonPicker);
 }
 
 
 function displayContents(contents) {
-    console.log(contents);
+  console.log(contents);
   var element = document.getElementById('obj');
   element.innerHTML = contents;
 }
