@@ -1,3 +1,4 @@
+//create Model object
 Model=function(ind,wireInd,verts,cols,texts,normals,objC){
 	this.indices=ind;
 	this.wireframeIndices=wireInd;
@@ -8,6 +9,7 @@ Model=function(ind,wireInd,verts,cols,texts,normals,objC){
 	this.objCenter=objC;
 }
 
+//initialize model info and data
 Model.prototype.init=function(){
 	this.initGL();
 
@@ -60,6 +62,7 @@ Model.prototype.render=function(){
 	}
 }
 
+//load uniform matrices (modelview and projection) into shaders
 Model.prototype.loadMatrixUniforms=function(){
 	gl.uniformMatrix4fv(colorShaderProgram.pMatrixUniform,false,flatten(pMatrix));
 	var mvMatrix=mult(vMatrix,this.mMatrix);

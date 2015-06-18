@@ -71,7 +71,7 @@ function initColorShaders(){
     colorShaderProgram=initShaders(gl,"color-vShader","color-fShader");
    
     //not sure why use this.colorProgram rather than colorShaderProgram
-    gl.useProgram(this.colorProgram);
+    gl.useProgram(colorShaderProgram);
 
     //get location of vPosition attr in shader and enable it
     colorShaderProgram.vPositionAttribute=gl.getAttribLocation(colorShaderProgram,"vPosition");

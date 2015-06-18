@@ -4,6 +4,7 @@ var vertTextures;
 var vertNormals;
 var indices,wireframeIndices;
 
+//parse .obj files
 function parseOBJ(objText){
     var lines=objText.split("\n");
     var numLines=lines.length;

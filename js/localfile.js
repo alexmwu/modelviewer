@@ -1,5 +1,6 @@
 var file;	//obj file
 
+//display info for a given file in a given DOM element
 function fileInfo(file,elem){
 	var output=[];
 	output.push('<strong>'+escape(file.name),'</strong> (',file.type||'n/a',') - ',file.size,' bytes, last modified: ',
@@ -36,6 +37,7 @@ function fileInfo(file,elem){
     }
   }*/
 
+//read a single file on a given event (from picking a file)
 function readSingleFile(e) {
   var file = e.target.files[0];
   if (!file) {
@@ -73,9 +75,9 @@ function addButton(elem){
   elem.appendChild(buttonPicker);
 }
 
-
+/*//log contents in console and in an obj file
 function displayContents(contents) {
   console.log(contents);
   var element = document.getElementById('obj');
   element.innerHTML = contents;
-}
+}*/
