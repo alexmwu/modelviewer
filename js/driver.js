@@ -64,11 +64,11 @@ function initializeListeners(rSpeed,tSpeed){
                 transZ=translateSpeed;
                 applyViewChange(theta,phi);
                 break;
-            case 107:   //+
-                handleScroll(1);
-                break;
-            case 109:   //-
+            case 187:   //+
                 handleScroll(-1);
+                break;
+            case 189:   //-
+                handleScroll(1);
                 break;  
         }
         event.preventDefault();
@@ -77,7 +77,7 @@ function initializeListeners(rSpeed,tSpeed){
     //function to run when scrolling
     function handleMouseWheel(evt){
         if (!event) /* For IE. */
-        event = window.event;
+            event = window.event;
         if (event.wheelDelta) { /* IE/Opera. */
             delta = event.wheelDelta/120;
         } else if (event.detail) { /** Mozilla case. */
@@ -110,7 +110,6 @@ function initializeListeners(rSpeed,tSpeed){
             radius=radius*1.1;
         else
             return;
-        
         applyViewChange(0,0);
     }
     
