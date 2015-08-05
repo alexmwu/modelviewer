@@ -1,10 +1,10 @@
 var file;	// obj file
 
 // display info for a given file in a given DOM element
-function fileInfo(file,elem){
+function fileInfo(file, elem) {
 	var output = [];
-	output.push('<strong>'+escape(file.name),'</strong> (',file.type||'n/a',') - ',file.size,' bytes, last modified: ',
-          file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() : 'n/a','<br>');
+	output.push('<strong>'+escape(file.name), '</strong> (', file.type||'n/a', ') - ', file.size, ' bytes,  last modified: ',
+          file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() : 'n/a', '<br>');
 	elem.innerHTML += output.join('');
 }
 
@@ -43,7 +43,7 @@ function readSingleFile(e) {
   if (!file) {
     return;
   }
-  fileInfo(file,e.srcElement);
+  fileInfo(file, e.srcElement);
   var reader = new FileReader();
   // when reader has loaded
   reader.onload = function(e) {
@@ -57,7 +57,7 @@ function readSingleFile(e) {
       if(!listening)
         initializeListeners(10);
 
-      currentModel = new Model(indices,wireframeIndices,vertices,vertColors,vertTextures,vertNormals,objCenter);
+      currentModel = new Model(indices, wireframeIndices, vertices, vertColors, vertTextures, vertNormals, objCenter);
       currentModel.init();
       models.push(currentModel);
       // addButton(e.srcElement);
@@ -69,11 +69,11 @@ function readSingleFile(e) {
 // TODO: add a new button after original; not currently in use above
 // should also add a button that selects the model that was loaded via that button
 // this is so that users can pick which model to manipulate
-function addButton(elem){
+function addButton(elem) {
   var buttonPicker = document.createElement("input");
   buttonPicker.type = "file";
   buttonPicker.class = "file-picker";
-  buttonPicker.addEventListener('change',readSingleFile,false);
+  buttonPicker.addEventListener('change', readSingleFile, false);
   elem.appendChild(buttonPicker);
 }
 
