@@ -98,7 +98,7 @@ Model.prototype.loadBufferData = function() {
 
 /*
  *******************************************************
- need to fix flipping issue
+ TODO: need to fix flipping issue
  ********************************************************
  */
 
