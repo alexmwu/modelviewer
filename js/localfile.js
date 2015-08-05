@@ -2,40 +2,40 @@ var file;	// obj file
 
 // display info for a given file in a given DOM element
 function fileInfo(file, elem) {
-	var output = [];
-	output.push('<strong>'+escape(file.name), '</strong> (', file.type||'n/a', ') - ', file.size, ' bytes,  last modified: ',
-          file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() : 'n/a', '<br>');
-	elem.innerHTML += output.join('');
+  var output = [];
+  output.push('<strong>'+escape(file.name), '</strong> (', file.type||'n/a', ') - ', file.size, ' bytes,  last modified: ',
+      file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() : 'n/a', '<br>');
+  elem.innerHTML += output.join('');
 }
 
 /*  function handleFileSelect(evt) {
     var files = evt.target.files; // FileList object
 
-    // Loop through the FileList and render image files as thumbnails.
-    for (var i = 0, f; f = files[i]; i++) {
+// Loop through the FileList and render image files as thumbnails.
+for (var i = 0, f; f = files[i]; i++) {
 
-      // Only process image files.
-      if (!f.type.match('image.*')) {
-        continue;
-      }
+// Only process image files.
+if (!f.type.match('image.*')) {
+continue;
+}
 
-      var reader = new FileReader();
+var reader = new FileReader();
 
-      // Closure to capture the file information.
-      reader.onload = (function(theFile) {
-        return function(e) {
-          // Render thumbnail.
-          var span = document.createElement('span');
-          span.innerHTML = ['<img class="thumb" src="', e.target.result,
-                            '" title="', escape(theFile.name), '"/>'].join('');
-          document.getElementById('list').insertBefore(span, null);
-        };
-      })(f);
+// Closure to capture the file information.
+reader.onload = (function(theFile) {
+return function(e) {
+// Render thumbnail.
+var span = document.createElement('span');
+span.innerHTML = ['<img class="thumb" src="', e.target.result,
+'" title="', escape(theFile.name), '"/>'].join('');
+document.getElementById('list').insertBefore(span, null);
+};
+})(f);
 
-      // Read in the image file as a data URL.
-      reader.readAsDataURL(f);
-    }
-  }*/
+// Read in the image file as a data URL.
+reader.readAsDataURL(f);
+}
+}*/
 
 // read a single file on a given event (from picking a file)
 function readSingleFile(e) {
