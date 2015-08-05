@@ -9,7 +9,7 @@ window.onload = function() {
 // reads text from file given a URL and return the response
 function readFileFromURL(url) {
   console.log("URL: "+url);
-  var xhr = CORSRequest("GET",url);
+  var xhr = CORSRequest("GET", url);
 
   xhr.onerror = function() {
     return -3;
@@ -34,14 +34,14 @@ function readFileFromURL(url) {
 
 }
 
-function CORSRequest(method,url) {
+function CORSRequest(method, url) {
   var xhr = new XMLHttpRequest();
   if("withCredentials" in xhr) {
-    xhr.open(method,url,true);
+    xhr.open(method, url, true);
   }
   else if(typeof XDomainRequest != "undefined") {
     xhr = new XDomainRequest();
-    xhr.open(method,url);
+    xhr.open(method, url);
   }
   else{
     xhr = null;
