@@ -41,7 +41,7 @@ function applyViewChange(deltaTheta,deltaPhi){
     else if(phi>0)
         phi-=360;
 */
-    theta+=deltaTheta;  
+    theta+=deltaTheta;
     phi+=deltaPhi;
     var cartCoords=polarToCartesian();
 
@@ -69,21 +69,21 @@ function drawScene(){
 function initColorShaders(){
     //get shaders for gl from script tags (named color-vShader, fShader)
     colorShaderProgram=initShaders(gl,"color-vShader","color-fShader");
-   
+
     //not sure why use this.colorProgram rather than colorShaderProgram
     gl.useProgram(colorShaderProgram);
 
     //get location of vPosition attr in shader and enable it
     colorShaderProgram.vPositionAttribute=gl.getAttribLocation(colorShaderProgram,"vPosition");
     gl.enableVertexAttribArray(colorShaderProgram.vPositionAttribute);
-    
+
     //get location of vColor attr in shader and enable it
     colorShaderProgram.vColorAttribute=gl.getAttribLocation(colorShaderProgram,"vColor");
     gl.enableVertexAttribArray(colorShaderProgram.vColorAttribute);
 
     //get locations of uniform variables in shaders
     colorShaderProgram.pMatrixUniform=gl.getUniformLocation(colorShaderProgram,"pMatrix");
-    colorShaderProgram.mvMatrixUniform=gl.getUniformLocation(colorShaderProgram,"mvMatrix"); 
+    colorShaderProgram.mvMatrixUniform=gl.getUniformLocation(colorShaderProgram,"mvMatrix");
 }
 
 //initialize the non-color shaders

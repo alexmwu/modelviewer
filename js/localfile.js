@@ -1,11 +1,11 @@
-var file;	//obj file
+var file;	// obj file
 
-//display info for a given file in a given DOM element
+// display info for a given file in a given DOM element
 function fileInfo(file,elem){
-	var output=[];
+	var output = [];
 	output.push('<strong>'+escape(file.name),'</strong> (',file.type||'n/a',') - ',file.size,' bytes, last modified: ',
           file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() : 'n/a','<br>');
-	elem.innerHTML+=output.join('');
+	elem.innerHTML += output.join('');
 }
 
 /*  function handleFileSelect(evt) {
@@ -37,7 +37,7 @@ function fileInfo(file,elem){
     }
   }*/
 
-//read a single file on a given event (from picking a file)
+// read a single file on a given event (from picking a file)
 function readSingleFile(e) {
   var file = e.target.files[0];
   if (!file) {
@@ -45,39 +45,43 @@ function readSingleFile(e) {
   }
   fileInfo(file,e.srcElement);
   var reader = new FileReader();
-  //when reader has loaded
+  // when reader has loaded
   reader.onload = function(e) {
     var contents = e.target.result;
-    vertices=[];
-    objCenter=parseOBJ(contents);
-    if(vertices.length==0){
+    vertices = [];
+    objCenter = parseOBJ(contents);
+    if(vertices.length == 0) {
       alert("The file wasn't loaded as it was incorrectly formatted");
     }
-    else{
+    else {
       if(!listening)
         initializeListeners(10);
 
-      currentModel=new Model(indices,wireframeIndices,vertices,vertColors,vertTextures,vertNormals,objCenter);
+      currentModel = new Model(indices,wireframeIndices,vertices,vertColors,vertTextures,vertNormals,objCenter);
       currentModel.init();
       models.push(currentModel);
-      //addButton(e.srcElement);
+      // addButton(e.srcElement);
     }
   };
   reader.readAsText(file);
 }
 
-//add a new button after original; not currently in use above: better practice to 
+// TODO: add a new button after original; not currently in use above
+// should also add a button that selects the model that was loaded via that button
+// this is so that users can pick which model to manipulate
 function addButton(elem){
-  var buttonPicker=document.createElement("input");
-  buttonPicker.type="file";
-  buttonPicker.class="file-picker";
+  var buttonPicker = document.createElement("input");
+  buttonPicker.type = "file";
+  buttonPicker.class = "file-picker";
   buttonPicker.addEventListener('change',readSingleFile,false);
   elem.appendChild(buttonPicker);
 }
 
-/*//log contents in console and in an obj file
+// log contents in console and in an obj file
 function displayContents(contents) {
   console.log(contents);
   var element = document.getElementById('obj');
   element.innerHTML = contents;
-}*/
+}
+
+// TODO: add a header to file div that gives file info (based on adding an id for the div, where the id is derived form the number of fiels open)
