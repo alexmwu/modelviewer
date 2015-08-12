@@ -46,7 +46,6 @@ function initializeListeners(rSpeed,tSpeed) {
                   break;
                   case 65:    // a
                   transX = translateSpeed;
-                  applyViewChange(theta,phi);
                   break;
                   case 83:    // s
                   transY = translateSpeed;
@@ -54,6 +53,7 @@ function initializeListeners(rSpeed,tSpeed) {
                   break;
                   case 68:    // d
                   transX = -translateSpeed;
+                  applyViewChange(theta,phi);
                   applyViewChange(theta,phi);
                   break;
                   case 82:    // r
@@ -64,18 +64,18 @@ function initializeListeners(rSpeed,tSpeed) {
                   transZ = translateSpeed;
                   applyViewChange(theta,phi);
                   break;*/
-      case 187:   // +
-        handleScroll(-1);
+/*      case 187:   // +
+        handleScroll(-5);
         break;
       case 189:   // -
-        handleScroll(1);
-        break;
+        handleScroll(5);
+        break;*/
     }
     event.preventDefault();
   }
   // from this example http://ominoushum.com/gl/cube/
   // function to run when scrolling
-  function handleMouseWheel(evt) {
+  function handleMouseWheel() {
     if (!event) /* For IE. */
       event = window.event;
     if (event.wheelDelta) { /* IE/Opera. */
@@ -102,11 +102,12 @@ function initializeListeners(rSpeed,tSpeed) {
   }
 
   function handleScroll(delta) {
+    console.log('swag');
     // if scroll is neg and radius is large enough so don't scroll too far in
     if (delta < 0 && radius > .01)
       radius = radius / 1.1;
     // if radius is small enough, zoom out
-    else if(radius<9)
+    else if(radius < 9)
       radius = radius * 1.1;
     else
       return;
