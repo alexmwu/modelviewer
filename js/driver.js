@@ -1,6 +1,34 @@
 // spherical coords
 var rotateSpeed,translateSpeed;
 var listening = false;  // whether initlisteners has been called
+// global driver variable (easy for dev tools use)
+var Driver = {
+  rotateLeft: function(){
+              },
+  rotateRight: function(){
+               },
+  rotateUp: function(){
+            },
+  rotateDown: function(){
+              },
+  moveLeft: function(){
+            },
+  moveRight: function(){
+             },
+  moveUp: function(){
+          },
+  moveDown: function(){
+            },
+  moveForward: function(){
+               },
+  moveBackward: function(){
+                },
+  zoomIn: function(){
+          },
+  zoomOut: function(){
+           },
+};
+
 
 function initializeListeners(rSpeed,tSpeed) {
   rotateSpeed = rSpeed;
@@ -18,8 +46,6 @@ function initializeListeners(rSpeed,tSpeed) {
     if(event.charCode && code == 0)
       code = event.charCode;
     switch(code) {
-
-      // old code            applyViewChange(theta,phi,transX,transY,transZ);
       case 37:
         // left key
         theta = -rotateSpeed;
@@ -40,36 +66,30 @@ function initializeListeners(rSpeed,tSpeed) {
         phi = rotateSpeed;
         applyViewChange(theta,phi);
         break;
-        /*        case 87:    // w
-                  transY = -translateSpeed;
-                  applyViewChange(theta,phi);
-                  break;
-                  case 65:    // a
-                  transX = translateSpeed;
-                  break;
-                  case 83:    // s
-                  transY = translateSpeed;
-                  applyViewChange(theta,phi);
-                  break;
-                  case 68:    // d
-                  transX = -translateSpeed;
-                  applyViewChange(theta,phi);
-                  applyViewChange(theta,phi);
-                  break;
-                  case 82:    // r
-                  transZ = -translateSpeed;
-                  applyViewChange(theta,phi);
-                  break;
-                  case 70:    // f
-                  transZ = translateSpeed;
-                  applyViewChange(theta,phi);
-                  break;*/
-/*      case 187:   // +
-        handleScroll(-5);
+      case 87:    // w
+        transY = -translateSpeed;
+        applyViewChange(theta,phi);
         break;
-      case 189:   // -
-        handleScroll(5);
-        break;*/
+      case 65:    // a
+        transX = translateSpeed;
+        break;
+      case 83:    // s
+        transY = translateSpeed;
+        applyViewChange(theta,phi);
+        break;
+      case 68:    // d
+        transX = -translateSpeed;
+        applyViewChange(theta,phi);
+        applyViewChange(theta,phi);
+        break;
+      case 82:    // r
+        transZ = -translateSpeed;
+        applyViewChange(theta,phi);
+        break;
+      case 70:    // f
+        transZ = translateSpeed;
+        applyViewChange(theta,phi);
+        break;
     }
     event.preventDefault();
   }
@@ -115,5 +135,7 @@ function initializeListeners(rSpeed,tSpeed) {
   }
 
   var glCanvas = document.getElementById("gl-canvas");
-  glCanvas.onmousewheel = handleMouseWheel;
+  /*
+   *glCanvas.onmousewheel = handleMouseWheel;
+   */
 };
