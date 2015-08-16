@@ -1,14 +1,3 @@
-window.onload = function() {
-  console.log('akslfjsdaf');
-  document.getElementById("submiturl").onclick  =  function() {
-    var url = document.getElementById('objurl').value;
-    var resp = readFileFromURL(url);
-    document.getElementById('obj').innerHTML = resp;
-  }
-  initializeListeners(10,10);
-console.log('sdafjlksjf');
-}
-
 // reads text from file given a URL and return the response
 function readFileFromURL(url) {
   console.log("URL: "+url);
