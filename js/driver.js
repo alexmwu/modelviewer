@@ -1,15 +1,25 @@
 // spherical coords
 var rotateSpeed,translateSpeed;
+// might not need
 var listening = false;  // whether initlisteners has been called
+
 // global driver variable (easy for dev tools use)
 var Driver = {
   rotateLeft: function(){
+                phi = -rotateSpeed;
+                applyViewChange(theta,phi);
               },
   rotateRight: function(){
+                 theta = rotateSpeed;
+                 applyViewChange(theta,phi);
                },
   rotateUp: function(){
+              phi = -rotateSpeed;
+              applyViewChange(theta,phi);
             },
   rotateDown: function(){
+                phi = rotateSpeed;
+                applyViewChange(theta,phi);
               },
   moveLeft: function(){
             },
@@ -30,9 +40,12 @@ var Driver = {
 };
 
 
-function initializeListeners(rSpeed,tSpeed) {
+function initializeListeners(rSpeed, tSpeed) {
+  // set speed of rotation, translation
   rotateSpeed = rSpeed;
   translateSpeed = tSpeed;
+
+  // initialize theta and phi to 0
   theta = 0;
   phi = 0;
   listening = true;
@@ -41,31 +54,27 @@ function initializeListeners(rSpeed,tSpeed) {
       event = window.event;
     var code = event.keyCode;
     transX = 0, transY = 0, transZ = 0;
-    var theta = 0,phi = 0;
+    var theta = 0, phi = 0;
 
     if(event.charCode && code == 0)
       code = event.charCode;
     switch(code) {
       case 37:
         // left key
-        theta = -rotateSpeed;
-        applyViewChange(theta,phi);
+        Driver.rotateLeft();
         break;
       case 38:
         // up key
-        phi = -rotateSpeed;
-        applyViewChange(theta,phi);
+        Driver.rotateUp();
         break;
       case 39:
         // right key
-        theta = rotateSpeed;
-        applyViewChange(theta,phi);
-        break;
+        Driver.rotateRight();
+       break;
       case 40:
         // down key
-        phi = rotateSpeed;
-        applyViewChange(theta,phi);
-        break;
+        Driver.rotateDown();
+       break;
       case 87:    // w
         transY = -translateSpeed;
         applyViewChange(theta,phi);
@@ -79,7 +88,6 @@ function initializeListeners(rSpeed,tSpeed) {
         break;
       case 68:    // d
         transX = -translateSpeed;
-        applyViewChange(theta,phi);
         applyViewChange(theta,phi);
         break;
       case 82:    // r

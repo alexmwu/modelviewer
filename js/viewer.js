@@ -105,3 +105,9 @@ function polarToCartesian() {
     return cartCoords;
 }
 
+/*
+ *******************************************************
+ TODO: need to fix flipping issue
+ ********************************************************
+ */
+
