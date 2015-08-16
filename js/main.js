@@ -20,7 +20,14 @@ window.onload = function() {
     alert('The File APIs are not fully supported by this browser. This application may not be able to load files.');
   }
 
+  /*
+   *TODO: add button on loading .obj file that refers to the current model to manipulate as that loaded model
+   */
+  // empty models array
   models = [];
+
+  // initialize object manipulation listeners
+  initializeListeners(1,1);
 
   // if it is auto checked, make wireframe false, else true (it is a global)
   wireframe = document.getElementById("wireframe").checked == true;
@@ -32,7 +39,6 @@ window.onload = function() {
   if(!gl) {
     alert("WebGL isn't available");
   }
-
 
   // configure WebGL
   gl.viewport(0, 0, canvas.width, canvas.height);

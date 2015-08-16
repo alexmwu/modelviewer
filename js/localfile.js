@@ -54,10 +54,6 @@ function readSingleFile(e) {
       alert("The file wasn't loaded as it was incorrectly formatted");
     }
     else {
-      if(!listening) {
-console.log('uolo');
-        initializeListeners(10);
-      }
       currentModel = new Model(indices, wireframeIndices, vertices, vertColors, vertTextures, vertNormals, objCenter);
       currentModel.init();
       models.push(currentModel);
