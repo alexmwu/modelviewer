@@ -1,12 +1,14 @@
 // spherical coords
 var rotateSpeed,translateSpeed;
-// might not need
-var listening = false;  // whether initlisteners has been called
 
 // global driver variable (easy for dev tools use)
+
+/*
+ *TODO: use rotation matrix rather than Euler angles to fix gimbal lock; maybe quarternions
+ */
 var Driver = {
   rotateLeft: function(){
-                phi = -rotateSpeed;
+                theta = -rotateSpeed;
                 applyViewChange(theta,phi);
               },
   rotateRight: function(){
@@ -22,16 +24,28 @@ var Driver = {
                 applyViewChange(theta,phi);
               },
   moveLeft: function(){
+              transX = translateSpeed;
+              applyViewChange(theta,phi);
             },
   moveRight: function(){
+               transX = -translateSpeed;
+               applyViewChange(theta,phi);
              },
   moveUp: function(){
+            transY = -translateSpeed;
+            applyViewChange(theta,phi);
           },
   moveDown: function(){
+              transY = translateSpeed;
+              applyViewChange(theta,phi);
             },
   moveForward: function(){
+                 transZ = translateSpeed;
+                 applyViewChange(theta,phi);
                },
   moveBackward: function(){
+                  transZ = -translateSpeed;
+                  applyViewChange(theta,phi);
                 },
   zoomIn: function(){
           },
@@ -48,7 +62,6 @@ function initializeListeners(rSpeed, tSpeed) {
   // initialize theta and phi to 0
   theta = 0;
   phi = 0;
-  listening = true;
   document.onkeydown = function(event) {
     if(!event)
       event = window.event;
@@ -75,28 +88,29 @@ function initializeListeners(rSpeed, tSpeed) {
         // down key
         Driver.rotateDown();
        break;
-      case 87:    // w
-        transY = -translateSpeed;
-        applyViewChange(theta,phi);
+      case 87:
+        // w
+        Driver.moveUp();
+       break;
+      case 65:
+        // a
+        Driver.moveLeft();
         break;
-      case 65:    // a
-        transX = translateSpeed;
+      case 83:
+        //s
+        Driver.moveDown();
         break;
-      case 83:    // s
-        transY = translateSpeed;
-        applyViewChange(theta,phi);
+      case 68:
+        //d
+        Driver.moveRight();
         break;
-      case 68:    // d
-        transX = -translateSpeed;
-        applyViewChange(theta,phi);
+      case 82:
+        //r
+        Driver.moveBackward();
         break;
-      case 82:    // r
-        transZ = -translateSpeed;
-        applyViewChange(theta,phi);
-        break;
-      case 70:    // f
-        transZ = translateSpeed;
-        applyViewChange(theta,phi);
+      case 70:
+        //f
+        Driver.moveForward();
         break;
     }
     event.preventDefault();
