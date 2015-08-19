@@ -80,7 +80,7 @@ function initializeListeners(rSpeed, tSpeed) {
       event = window.event;
     var code = event.keyCode;
     transX = 0, transY = 0, transZ = 0;
-    var theta = 0, phi = 0;
+    theta = 0, phi = 0;
 
     if(event.charCode && code == 0)
       code = event.charCode;
