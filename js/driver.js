@@ -17,6 +17,8 @@ var Driver = {
    *transX: 0,
    *transY: 0,
    *transZ: 0,
+   *theta: 0,
+   *phi: 0,
    *rotateSpeed: 0,
    *translateSpeed: 0,
    */
