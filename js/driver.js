@@ -1,12 +1,25 @@
 // spherical coords
 var rotateSpeed,translateSpeed;
 
+// camera angles
+var theta, phi;
+// camera eye position
+var transX, transY, transZ;
+
 // global driver variable (easy for dev tools use)
 
 /*
  *TODO: use rotation matrix rather than Euler angles to fix gimbal lock; maybe quarternions
  */
 var Driver = {
+  //use the below when panning is fixed
+  /*
+   *transX: 0,
+   *transY: 0,
+   *transZ: 0,
+   *rotateSpeed: 0,
+   *translateSpeed: 0,
+   */
   rotateLeft: function(){
                 theta = -rotateSpeed;
                 applyViewChange(theta,phi);
@@ -144,7 +157,7 @@ function initializeListeners(rSpeed, tSpeed) {
   }
 
   function handleScroll(delta) {
-    console.log('swag');
+    console.log(delta);
     // if scroll is neg and radius is large enough so don't scroll too far in
     if (delta < 0 && radius > .01)
       radius = radius / 1.1;
@@ -157,7 +170,5 @@ function initializeListeners(rSpeed, tSpeed) {
   }
 
   var glCanvas = document.getElementById("gl-canvas");
-  /*
-   *glCanvas.onmousewheel = handleMouseWheel;
-   */
+  glCanvas.onmousewheel = handleMouseWheel;
 };

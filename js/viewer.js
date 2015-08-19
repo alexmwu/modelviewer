@@ -1,7 +1,5 @@
 var colorShaderProgram, flatShaderProgram;
 var radius;
-var theta, phi;  // camera angles
-var transX, transY, transZ;    // camera eye position
 // for lookat function
 var up = vec3(0.0, -1.0, 0.0);
 var at = vec3(0.0, 0.0, 0.0);
