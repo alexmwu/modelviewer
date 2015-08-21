@@ -65,7 +65,6 @@ Model.prototype.render = function() {
 // load uniform matrices (modelview and projection) into shaders
 Model.prototype.loadMatrixUniforms = function() {
   gl.uniformMatrix4fv(colorShaderProgram.pMatrixUniform, false, flatten(pMatrix));
-  console.log(vMatrix+"\n"+this.mMatrix);
   var mvMatrix = mult(vMatrix, this.mMatrix);
   gl.uniformMatrix4fv(colorShaderProgram.mvMatrixUniform, false, flatten(mvMatrix));
 }
