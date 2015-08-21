@@ -27,7 +27,7 @@ window.onload = function() {
   models = [];
 
   // initialize object manipulation listeners
-  initializeListeners(1,1);
+  initializeListeners(50, .1, 1);
 
   // if it is auto checked, make wireframe false, else true (it is a global)
   wireframe = document.getElementById("wireframe").checked == true;

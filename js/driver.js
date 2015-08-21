@@ -1,88 +1,103 @@
-// spherical coords
-var rotateSpeed,translateSpeed;
-
-// camera angles
-var theta, phi;
-// camera eye position
-var transX, transY, transZ;
-
-// global driver variable (easy for dev tools use)
-
 /*
  *TODO: use rotation matrix rather than Euler angles to fix gimbal lock; maybe quarternions
  */
+
+// global driver variable (easy for dev tools use)
 var Driver = {
-  //use the below when panning is fixed
+  // initialize camera variables to 0
+
+  // camera eye position
+  transX: 0,
+  transY: 0,
+  transZ: 0,
+
+  // camera angles
+  theta: 0,
+  phi: 0,
+
   /*
-   *transX: 0,
-   *transY: 0,
-   *transZ: 0,
-   *theta: 0,
-   *phi: 0,
-   *rotateSpeed: 0,
-   *translateSpeed: 0,
+   *TODO: give input (probably a range input) to change Driver speeds
    */
+
+  // speed of rotation and translation.
+  // translation should be around .01 to 1 by default
+  // (since the WebGL canvas is -1 to 1 on x, y)
+  // rotation should be around 10 to 50
+  rotateSpeed: 0,
+  translateSpeed: 0,
+
+  // radius of camera
+  radius: 0,
+
+
   rotateLeft: function(){
-                theta = -rotateSpeed;
-                applyViewChange(theta,phi);
+                this.theta -= this.rotateSpeed;
+                applyViewChange();
               },
   rotateRight: function(){
-                 theta = rotateSpeed;
-                 applyViewChange(theta,phi);
+                 this.theta += this.rotateSpeed;
+                 applyViewChange();
                },
   rotateUp: function(){
-              phi = -rotateSpeed;
-              applyViewChange(theta,phi);
+              this.phi -= this.rotateSpeed;
+              applyViewChange();
             },
   rotateDown: function(){
-                phi = rotateSpeed;
-                applyViewChange(theta,phi);
+                this.phi += this.rotateSpeed;
+                applyViewChange();
               },
   moveLeft: function(){
-              transX = translateSpeed;
-              applyViewChange(theta,phi);
+              this.transX += this.translateSpeed;
+              applyViewChange();
             },
   moveRight: function(){
-               transX = -translateSpeed;
-               applyViewChange(theta,phi);
+               this.transX -= this.translateSpeed;
+               applyViewChange();
              },
   moveUp: function(){
-            transY = -translateSpeed;
-            applyViewChange(theta,phi);
+            this.transY -= this.translateSpeed;
+            applyViewChange();
           },
   moveDown: function(){
-              transY = translateSpeed;
-              applyViewChange(theta,phi);
+              this.transY += this.translateSpeed;
+              applyViewChange();
             },
   moveForward: function(){
-                 transZ = translateSpeed;
-                 applyViewChange(theta,phi);
+                 this.transZ += this.translateSpeed;
+                 applyViewChange();
                },
   moveBackward: function(){
-                  transZ = -translateSpeed;
-                  applyViewChange(theta,phi);
+                  this.transZ -= this.translateSpeed;
+                  applyViewChange();
                 },
   zoomIn: function(){
           },
   zoomOut: function(){
            },
+  // returns array of cartesian coordinates based on theta and phi
+  polarToCartesian: function(){
+                      var cartCoords = [];
+                      var xPos = this.radius*Math.sin(this.theta*Math.PI/360)*Math.cos(this.phi*Math.PI/360);
+                      var yPos = this.radius*Math.sin(this.phi*Math.PI/360);
+                      var zPos = this.radius*Math.cos(this.theta*Math.PI/360)*Math.cos(this.phi*Math.PI/360);
+                      cartCoords.push(xPos);
+                      cartCoords.push(yPos);
+                      cartCoords.push(zPos);
+                      return cartCoords;
+                    }
 };
 
 
-function initializeListeners(rSpeed, tSpeed) {
+function initializeListeners(rSpeed, tSpeed, r) {
   // set speed of rotation, translation
-  rotateSpeed = rSpeed;
-  translateSpeed = tSpeed;
+  Driver.rotateSpeed = rSpeed;
+  Driver.translateSpeed = tSpeed;
+  Driver.radius = r;
 
-  // initialize theta and phi to 0
-  theta = 0;
-  phi = 0;
   document.onkeydown = function(event) {
     if(!event)
       event = window.event;
     var code = event.keyCode;
-    transX = 0, transY = 0, transZ = 0;
-    theta = 0, phi = 0;
 
     if(event.charCode && code == 0)
       code = event.charCode;
@@ -161,11 +176,11 @@ function initializeListeners(rSpeed, tSpeed) {
   function handleScroll(delta) {
     console.log(delta);
     // if scroll is neg and radius is large enough so don't scroll too far in
-    if (delta < 0 && radius > .01)
-      radius = radius / 1.1;
+    if (delta < 0 && Driver.radius > .01)
+      Driver.radius = Driver.radius / 1.1;
     // if radius is small enough, zoom out
-    else if(radius < 9)
-      radius = radius * 1.1;
+    else if(Driver.radius < 9)
+      Driver.radius = Driver.radius * 1.1;
     else
       return;
     applyViewChange(0,0);
