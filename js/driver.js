@@ -1,7 +1,3 @@
-/*
- *TODO: use rotation matrix rather than Euler angles to fix gimbal lock; maybe quarternions
- */
-
 // global driver variable (easy for dev tools use)
 var Driver = {
   // initialize camera variables to 0
@@ -70,10 +66,17 @@ var Driver = {
                   this.transZ -= this.translateSpeed;
                   applyViewChange();
                 },
-  zoomIn: function(){
-          },
-  zoomOut: function(){
-           },
+  zoom: function(delta){
+          // if scroll is neg and radius is large enough so don't scroll too far in
+          if (delta < 0 && this.radius > .01)
+            this.radius = this.radius / 1.1;
+          // if radius is small enough, zoom out
+          else if(delta > 0 && this.radius < 9)
+            this.radius = this.radius * 1.1;
+          else
+            return;
+          applyViewChange(0,0);
+        },
   // returns array of cartesian coordinates based on theta and phi
   polarToCartesian: function(){
                       var cartCoords = [];
@@ -113,15 +116,15 @@ function initializeListeners(rSpeed, tSpeed, r) {
       case 39:
         // right key
         Driver.rotateRight();
-       break;
+        break;
       case 40:
         // down key
         Driver.rotateDown();
-       break;
+        break;
       case 87:
         // w
         Driver.moveUp();
-       break;
+        break;
       case 65:
         // a
         Driver.moveLeft();
@@ -163,7 +166,7 @@ function initializeListeners(rSpeed, tSpeed, r) {
      * * and negative, if wheel was scrolled down.
      * */
     if (delta)
-      handleScroll(delta);
+      Driver.zoom(delta);
     /** Prevent default actions caused by mouse wheel.
      * * That might be ugly, but we handle scrolls somehow
      * * anyway, so don’t bother here..
@@ -171,19 +174,6 @@ function initializeListeners(rSpeed, tSpeed, r) {
     if (event.preventDefault)
       event.preventDefault();
     event.returnValue = false;
-  }
-
-  function handleScroll(delta) {
-    console.log(delta);
-    // if scroll is neg and radius is large enough so don't scroll too far in
-    if (delta < 0 && Driver.radius > .01)
-      Driver.radius = Driver.radius / 1.1;
-    // if radius is small enough, zoom out
-    else if(Driver.radius < 9)
-      Driver.radius = Driver.radius * 1.1;
-    else
-      return;
-    applyViewChange(0,0);
   }
 
   var glCanvas = document.getElementById("gl-canvas");
